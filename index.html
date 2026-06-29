@@ -131,27 +131,23 @@ a{ color:inherit; text-decoration:none; }
 @keyframes drift2{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(140px,-80px) scale(1.18);} }
 @keyframes drift3{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-150px,90px) scale(1.25);} }
 
-/* Hero — Tower of Babel (ziggurat) line-art */
-.hero-tower{
-  position:absolute; z-index:1; right:max(2vw,calc((100vw - var(--maxw))/2 - 60px)); top:50%;
-  transform:translateY(-50%); width:min(46vw,560px); height:auto; pointer-events:none; opacity:.9;
-  -webkit-mask-image:radial-gradient(ellipse 90% 90% at 60% 45%,#000 35%,transparent 88%);
-  mask-image:radial-gradient(ellipse 90% 90% at 60% 45%,#000 35%,transparent 88%);
-}
-.hero-tower{ filter:drop-shadow(0 0 6px rgba(170,150,255,.9)) drop-shadow(0 0 16px rgba(139,123,255,.6)) drop-shadow(0 0 36px rgba(232,178,78,.32)); }
-.hero-tower g ellipse{ transform-box:fill-box; transform-origin:center; animation:ringWave 3s ease-in-out infinite; }
-.hero-tower g ellipse:nth-of-type(1){ animation-delay:0s; }
-.hero-tower g ellipse:nth-of-type(2){ animation-delay:.16s; }
-.hero-tower g ellipse:nth-of-type(3){ animation-delay:.32s; }
-.hero-tower g ellipse:nth-of-type(4){ animation-delay:.48s; }
-.hero-tower g ellipse:nth-of-type(5){ animation-delay:.64s; }
-.hero-tower g ellipse:nth-of-type(6){ animation-delay:.80s; }
-.hero-tower g ellipse:nth-of-type(7){ animation-delay:.96s; }
-@keyframes ringWave{
-  0%,62%,100%{ opacity:.55; transform:scale(1); }
-  28%{ opacity:1; transform:scale(1.06); }
-}
-@media (max-width:1024px){ .hero-tower{ opacity:.32; right:-8vw; width:70vw; } }
+/* Hero — horizontal data stream (flowing English code) */
+.hero-visual{ position:absolute; z-index:1; top:0; bottom:0; right:0; width:min(60vw,880px); overflow:hidden; pointer-events:none; opacity:.9;
+  -webkit-mask-image:radial-gradient(ellipse 80% 86% at 74% 50%,#000 24%,transparent 82%);
+  mask-image:radial-gradient(ellipse 80% 86% at 74% 50%,#000 24%,transparent 82%); }
+.hv-row{ position:absolute; left:0; white-space:nowrap; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px; letter-spacing:.08em; color:rgba(170,160,210,.26); will-change:transform; animation:hvflow linear infinite; }
+.hv-row .on{ color:#9b8cff; }
+.hv-row .hot{ color:#ffe3a6; text-shadow:0 0 8px rgba(232,178,78,.75); }
+.hv-row span{ margin-right:30px; }
+@keyframes hvflow{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+.hv-row.rev{ animation-name:hvflowRev; }
+@keyframes hvflowRev{ from{ transform:translateX(-50%); } to{ transform:translateX(0); } }
+.hero-laser{ position:absolute; left:0; z-index:1; height:2px; width:480px; pointer-events:none; border-radius:2px; opacity:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(139,123,255,0) 12%,rgba(185,139,255,.85) 66%,#FFE3A6 100%);
+  box-shadow:0 0 12px rgba(185,139,255,.8),0 0 30px rgba(232,178,78,.45);
+  animation-name:hvlaser; animation-timing-function:cubic-bezier(.45,0,.2,1); animation-iteration-count:infinite; }
+@keyframes hvlaser{ 0%{ transform:translateX(-460px); opacity:0; } 3%{ opacity:1; } 15%{ opacity:1; } 19%{ transform:translateX(100vw); opacity:0; } 100%{ transform:translateX(100vw); opacity:0; } }
+@media (max-width:1024px){ .hero-visual{ opacity:.4; width:90vw; } .hero-laser{ display:none; } }
 
 .hero-inner{ position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; width:100%; }
 .hero-eyebrow{
@@ -337,7 +333,7 @@ a{ color:inherit; text-decoration:none; }
   .scroll-hint{ display:none; }
 }
 @media (prefers-reduced-motion:reduce){
-  .orb,.scroll-hint .line,.hero-tower g ellipse{ animation:none; }
+  .orb,.scroll-hint .line,.hv-row,.hero-laser{ animation:none; }
   .reveal{ transition:none; opacity:1; transform:none; }
 }
 </style>
@@ -374,27 +370,11 @@ a{ color:inherit; text-decoration:none; }
   <div class="orb b"></div>
   <div class="orb c"></div>
 
-  <!-- Tower of Babel (ziggurat) line-art -->
-  <svg class="hero-tower" viewBox="0 0 460 560" fill="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="towerG" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#E8B24E"/><stop offset=".5" stop-color="#B07BFF"/><stop offset="1" stop-color="#7B6CFF"/>
-      </linearGradient>
-    </defs>
-    <g stroke="url(#towerG)" stroke-width="2.2" opacity=".95">
-      <!-- stacked stepped tiers, narrowing upward -->
-      <ellipse class="ring" cx="230" cy="500" rx="180" ry="40"/>
-      <ellipse class="ring ring2" cx="230" cy="430" rx="150" ry="33"/>
-      <ellipse class="ring ring3" cx="230" cy="362" rx="124" ry="28"/>
-      <ellipse class="ring" cx="230" cy="298" rx="100" ry="23"/>
-      <ellipse class="ring ring2" cx="230" cy="238" rx="78" ry="18"/>
-      <ellipse class="ring ring3" cx="230" cy="182" rx="58" ry="14"/>
-      <ellipse class="ring" cx="230" cy="132" rx="40" ry="10"/>
-      <!-- vertical edges -->
-      <path d="M50 500 L80 132 M410 500 L380 132" opacity=".5"/>
-      <path d="M110 460 L130 200 M350 460 L330 200" opacity=".35"/>
-    </g>
-  </svg>
+  <!-- horizontal data stream (flowing English code) -->
+  <div class="hero-visual" id="heroStream" aria-hidden="true"></div>
+  <span class="hero-laser" style="animation-duration:7s;animation-delay:-1s"></span>
+  <span class="hero-laser" style="animation-duration:9.5s;animation-delay:-4.5s"></span>
+  <span class="hero-laser" style="animation-duration:11.5s;animation-delay:-8s"></span>
 
   <div class="hero-inner">
     <div class="hero-eyebrow">Software · Data · Media</div>
@@ -688,6 +668,30 @@ a{ color:inherit; text-decoration:none; }
 </footer>
 
 <script>
+  // Hero lasers: randomize vertical position each pass
+  document.querySelectorAll('.hero-laser').forEach(function(el){
+    var place=function(){ el.style.top=(12+Math.random()*70).toFixed(1)+'%'; };
+    place(); el.addEventListener('animationiteration', place);
+  });
+
+  // Hero horizontal data stream (flowing English code, scrolling sideways)
+  (function(){
+    var host=document.getElementById('heroStream'); if(!host) return;
+    var toks=['DATA','FLOW','0101','AI','API','SaaS','AUTO','SYNC','NODE','ML','EDGE','GPU','async','query','model','train','deploy','scale','stream','batch','map()','fn()','{ }','=>','REST','JSON','01','10','run','x402','BABEL','build','ship'];
+    var H=host.clientHeight||640, n=Math.max(7,Math.min(16,Math.floor(H/46)));
+    for(var i=0;i<n;i++){
+      var row=document.createElement('div'); row.className='hv-row'+(i%2? ' rev':'');
+      row.style.top=(i*(100/n)+1.5)+'%';
+      var dur=14+Math.random()*16; row.style.animationDuration=dur.toFixed(2)+'s';
+      row.style.animationDelay=(-Math.random()*dur).toFixed(2)+'s';
+      row.style.opacity=(0.5+Math.random()*0.5).toFixed(2);
+      var cnt=16+Math.floor(Math.random()*8), h='';
+      for(var j=0;j<cnt;j++){ var r=Math.random(), c=r>0.9?' class="hot"':(r>0.68?' class="on"':''); h+='<span'+c+'>'+toks[Math.floor(Math.random()*toks.length)]+'</span>'; }
+      row.innerHTML=h+h;
+      host.appendChild(row);
+    }
+  })();
+
   // Header scroll state
   const header = document.getElementById('header');
   const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30);
