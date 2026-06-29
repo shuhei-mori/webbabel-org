@@ -135,19 +135,26 @@ a{ color:inherit; text-decoration:none; }
 .hero-visual{ position:absolute; z-index:1; top:0; bottom:0; right:0; width:min(60vw,880px); overflow:hidden; pointer-events:none; opacity:.9;
   -webkit-mask-image:radial-gradient(ellipse 80% 86% at 74% 50%,#000 24%,transparent 82%);
   mask-image:radial-gradient(ellipse 80% 86% at 74% 50%,#000 24%,transparent 82%); }
-.hv-row{ position:absolute; left:0; white-space:nowrap; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px; letter-spacing:.08em; color:rgba(170,160,210,.26); will-change:transform; animation:hvflow linear infinite; }
+.hv-row{ position:absolute; left:0; white-space:nowrap; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px; letter-spacing:.08em; color:rgba(184,176,224,.55); will-change:transform; animation:hvflow linear infinite; transition:opacity .55s ease; }
 .hv-row .on{ color:#9b8cff; }
 .hv-row .hot{ color:#ffe3a6; text-shadow:0 0 8px rgba(232,178,78,.75); }
 .hv-row span{ margin-right:30px; }
+.hv-row.lit{ opacity:.95 !important; }
 @keyframes hvflow{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 .hv-row.rev{ animation-name:hvflowRev; }
 @keyframes hvflowRev{ from{ transform:translateX(-50%); } to{ transform:translateX(0); } }
-.hero-laser{ position:absolute; left:0; z-index:1; height:2px; width:480px; pointer-events:none; border-radius:2px; opacity:0;
-  background:linear-gradient(90deg,transparent 0%,rgba(139,123,255,0) 12%,rgba(185,139,255,.85) 66%,#FFE3A6 100%);
-  box-shadow:0 0 12px rgba(185,139,255,.8),0 0 30px rgba(232,178,78,.45);
-  animation-name:hvlaser; animation-timing-function:cubic-bezier(.45,0,.2,1); animation-iteration-count:infinite; }
-@keyframes hvlaser{ 0%{ transform:translateX(-460px); opacity:0; } 3%{ opacity:1; } 15%{ opacity:1; } 19%{ transform:translateX(100vw); opacity:0; } 100%{ transform:translateX(100vw); opacity:0; } }
-@media (max-width:1024px){ .hero-visual{ opacity:.4; width:90vw; } .hero-laser{ display:none; } }
+
+/* Hero — shooting stars (right → left meteors that reveal the data) */
+.hero-meteors{ position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 26%,#000 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,#000 26%,#000 100%); }
+.meteor{ position:absolute; left:100%; height:2px; width:240px; border-radius:2px; will-change:transform;
+  background:linear-gradient(270deg,transparent 0%,rgba(185,139,255,.0) 6%,rgba(185,139,255,.75) 62%,#FFF2CC 100%);
+  box-shadow:0 0 10px rgba(185,139,255,.85),0 0 26px rgba(232,178,78,.5);
+  animation-name:meteorFly; animation-timing-function:cubic-bezier(.32,.5,.2,1); animation-fill-mode:forwards; }
+.meteor::after{ content:''; position:absolute; left:0; top:50%; width:6px; height:6px; margin-top:-3px; border-radius:50%; background:#FFF6DE; box-shadow:0 0 10px 2px rgba(255,231,160,.95),0 0 22px 6px rgba(185,139,255,.55); }
+@keyframes meteorFly{ 0%{ transform:translateX(0); opacity:0; } 6%{ opacity:1; } 88%{ opacity:1; } 100%{ transform:translateX(calc(-100vw - 340px)); opacity:0; } }
+@media (max-width:1024px){ .hero-visual{ opacity:.5; width:90vw; } }
 
 .hero-inner{ position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; width:100%; }
 .hero-eyebrow{
@@ -333,7 +340,7 @@ a{ color:inherit; text-decoration:none; }
   .scroll-hint{ display:none; }
 }
 @media (prefers-reduced-motion:reduce){
-  .orb,.scroll-hint .line,.hv-row,.hero-laser{ animation:none; }
+  .orb,.scroll-hint .line,.hv-row,.meteor{ animation:none; }
   .reveal{ transition:none; opacity:1; transform:none; }
 }
 </style>
@@ -370,11 +377,9 @@ a{ color:inherit; text-decoration:none; }
   <div class="orb b"></div>
   <div class="orb c"></div>
 
-  <!-- horizontal data stream (flowing English code) -->
+  <!-- horizontal data stream + right→left shooting stars -->
   <div class="hero-visual" id="heroStream" aria-hidden="true"></div>
-  <span class="hero-laser" style="animation-duration:7s;animation-delay:-1s"></span>
-  <span class="hero-laser" style="animation-duration:9.5s;animation-delay:-4.5s"></span>
-  <span class="hero-laser" style="animation-duration:11.5s;animation-delay:-8s"></span>
+  <div class="hero-meteors" id="heroMeteors" aria-hidden="true"></div>
 
   <div class="hero-inner">
     <div class="hero-eyebrow">Software · Data · Media</div>
@@ -668,28 +673,46 @@ a{ color:inherit; text-decoration:none; }
 </footer>
 
 <script>
-  // Hero lasers: randomize vertical position each pass
-  document.querySelectorAll('.hero-laser').forEach(function(el){
-    var place=function(){ el.style.top=(12+Math.random()*70).toFixed(1)+'%'; };
-    place(); el.addEventListener('animationiteration', place);
-  });
-
-  // Hero horizontal data stream (flowing English code, scrolling sideways)
+  // Hero horizontal data stream + right→left shooting stars that reveal each row
   (function(){
-    var host=document.getElementById('heroStream'); if(!host) return;
+    var host=document.getElementById('heroStream');
+    var sky=document.getElementById('heroMeteors');
+    if(!host) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     var toks=['DATA','FLOW','0101','AI','API','SaaS','AUTO','SYNC','NODE','ML','EDGE','GPU','async','query','model','train','deploy','scale','stream','batch','map()','fn()','{ }','=>','REST','JSON','01','10','run','x402','BABEL','build','ship'];
-    var H=host.clientHeight||640, n=Math.max(7,Math.min(16,Math.floor(H/46)));
+    var H=host.clientHeight||640, n=Math.max(8,Math.min(18,Math.floor(H/40))), rows=[];
     for(var i=0;i<n;i++){
       var row=document.createElement('div'); row.className='hv-row'+(i%2? ' rev':'');
-      row.style.top=(i*(100/n)+1.5)+'%';
+      row.style.top=(i*(100/n)+1.2)+'%';
       var dur=14+Math.random()*16; row.style.animationDuration=dur.toFixed(2)+'s';
       row.style.animationDelay=(-Math.random()*dur).toFixed(2)+'s';
-      row.style.opacity=(0.5+Math.random()*0.5).toFixed(2);
-      var cnt=16+Math.floor(Math.random()*8), h='';
-      for(var j=0;j<cnt;j++){ var r=Math.random(), c=r>0.9?' class="hot"':(r>0.68?' class="on"':''); h+='<span'+c+'>'+toks[Math.floor(Math.random()*toks.length)]+'</span>'; }
+      row.style.opacity=(0.10+Math.random()*0.10).toFixed(2);   // 普段は控えめ＝メテオ通過で浮かび上がる
+      var cnt=18+Math.floor(Math.random()*8), h='';
+      for(var j=0;j<cnt;j++){ var r=Math.random(), c=r>0.9?' class="hot"':(r>0.66?' class="on"':''); h+='<span'+c+'>'+toks[Math.floor(Math.random()*toks.length)]+'</span>'; }
       row.innerHTML=h+h;
-      host.appendChild(row);
+      host.appendChild(row); rows.push(row);
     }
+    if(reduce || !sky){ rows.forEach(function(r){ r.classList.add('lit'); }); return; }
+
+    function rand(a,b){ return a+Math.random()*(b-a); }
+    function shoot(){
+      var m=document.createElement('span'); m.className='meteor';
+      var aligned = Math.random()<0.82 && rows.length;
+      var row = aligned ? rows[(Math.random()*rows.length)|0] : null;
+      var top = row ? (parseFloat(row.style.top)||rand(6,92)) : rand(6,92);
+      m.style.top=top.toFixed(1)+'%';
+      var dur=rand(0.55,1.15); m.style.animationDuration=dur.toFixed(2)+'s';
+      m.style.width=(180+Math.random()*160).toFixed(0)+'px';
+      sky.appendChild(m);
+      if(row){ row.classList.add('lit'); setTimeout(function(){ row.classList.remove('lit'); }, dur*1000+600); }
+      setTimeout(function(){ m.remove(); }, dur*1000+250);
+    }
+    function loop(){
+      shoot();
+      if(Math.random()<0.6) shoot();          // たまに同時に複数＝ヒュンヒュン
+      setTimeout(loop, rand(160,460));
+    }
+    loop();
   })();
 
   // Header scroll state
