@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>株式会社BABEL ｜ 到達不可能な未来を実現する</title>
+<meta name="description" content="株式会社BABEL — 分析ツール開発・運用、Web制作・開発研修、情報配信サイト運営、広告代行。到達不可能な未来を実現する。ITを、もっと身近で手軽なものへ。">
+<meta property="og:title" content="株式会社BABEL ｜ 到達不可能な未来を実現する">
+<meta property="og:description" content="分析ツール開発・運用、Web制作・開発研修、情報配信サイト運営、広告代行。ITを、もっと身近で手軽なものへ。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.webbabel.org/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Crect width='34' height='34' rx='9' fill='%238B7BFF'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M14 25h6'/%3E%3Cpath d='M12.5 25v-3h9v3'/%3E%3Cpath d='M14 22v-3.5h6V22'/%3E%3Cpath d='M15.2 18.5V15h3.6v3.5'/%3E%3Cpath d='M17 15V11'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root{
+  --bg:#070612;
+  --bg-2:#0B0A1C;
+  --bg-3:#0E0C22;
+  --card:rgba(255,255,255,0.025);
+  --card-hover:rgba(255,255,255,0.05);
+  --text:#FFFFFF;
+  --text-2:#AEA9CC;
+  --text-3:#6A6488;
+  --accent:#8B7BFF;
+  --accent-2:#B98BFF;
+  --gold:#E8B24E;
+  --border:rgba(255,255,255,0.09);
+  --border-strong:rgba(255,255,255,0.16);
+  --font-en:'Inter',sans-serif;
+  --font-jp:'Noto Sans JP',sans-serif;
+  --grad:linear-gradient(118deg,#7B6CFF 0%,#B07BFF 54%,#E8B24E 100%);
+  --grad-cool:linear-gradient(118deg,#7B6CFF 0%,#B98BFF 100%);
+  --maxw:1240px;
+}
+
+html{ scroll-behavior:smooth; }
+body{
+  font-family:var(--font-jp),var(--font-en),sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.8;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+a{ color:inherit; text-decoration:none; }
+::selection{ background:rgba(139,123,255,0.35); color:#fff; }
+
+/* ---------- Utilities ---------- */
+.inner{ max-width:var(--maxw); margin:0 auto; width:100%; }
+.eyebrow{
+  font-family:var(--font-en);
+  font-size:12px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--accent); display:inline-flex; align-items:center; gap:14px; margin-bottom:26px;
+}
+.eyebrow::before{ content:''; width:36px; height:1px; background:linear-gradient(90deg,var(--gold),transparent); }
+.s-title{
+  font-family:var(--font-jp); font-weight:900; letter-spacing:-0.01em;
+  font-size:clamp(30px,4.6vw,52px); line-height:1.18; margin-bottom:26px;
+}
+.s-lead{ color:var(--text-2); font-size:16.5px; max-width:620px; line-height:2; }
+.grad-text{
+  background:var(--grad); -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+}
+.gold-text{ color:var(--gold); }
+.section{ padding:140px 40px; position:relative; }
+
+/* ---------- Reveal ---------- */
+.reveal{ opacity:0; transform:translateY(36px); transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1); }
+.reveal.in{ opacity:1; transform:none; }
+.reveal.d1{ transition-delay:.08s; } .reveal.d2{ transition-delay:.16s; }
+.reveal.d3{ transition-delay:.24s; } .reveal.d4{ transition-delay:.32s; }
+
+/* ---------- Header ---------- */
+.header{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 40px;
+  padding-top:calc(env(safe-area-inset-top,0px) + 18px);
+  padding-left:max(40px,env(safe-area-inset-left,0px));
+  padding-right:max(40px,env(safe-area-inset-right,0px));
+  background:rgba(7,6,18,0.72);
+  border-bottom:1px solid transparent;
+  transition:background .4s, border-color .4s, padding .4s;
+}
+.header.scrolled{ background:rgba(7,6,18,0.85); border-bottom-color:var(--border); padding-top:calc(env(safe-area-inset-top,0px) + 12px); padding-bottom:12px; }
+.logo{ font-family:var(--font-en); font-weight:900; font-size:20px; letter-spacing:0.04em; display:flex; align-items:center; gap:11px; color:var(--text); }
+.logo-mark{ width:31px; height:31px; display:block; flex-shrink:0; filter:drop-shadow(0 4px 12px rgba(139,123,255,.4)); }
+.logo-text{ line-height:1; }
+.nav{ display:flex; align-items:center; gap:38px; }
+.nav a{ font-family:var(--font-en); font-size:13.5px; font-weight:500; letter-spacing:.02em; color:var(--text-2); position:relative; transition:color .25s; }
+.nav a::after{ content:''; position:absolute; bottom:-6px; left:0; width:0; height:1.5px; background:var(--grad); transition:width .35s cubic-bezier(.16,1,.3,1); }
+.nav a:hover{ color:var(--text); } .nav a:hover::after{ width:100%; }
+.nav .nav-cta{
+  font-family:var(--font-jp); color:var(--text); border:1px solid var(--border-strong);
+  padding:9px 20px; border-radius:100px; font-size:13px; font-weight:500; transition:all .3s;
+}
+.nav .nav-cta::after{ display:none; }
+.nav .nav-cta:hover{ background:#fff; color:var(--bg); border-color:#fff; }
+
+.burger{ display:none; flex-direction:column; justify-content:center; gap:6px; width:34px; height:34px; background:none; border:none; cursor:pointer; z-index:101; }
+.burger span{ display:block; width:24px; height:1.6px; background:#fff; transition:transform .35s, opacity .2s; margin:0 auto; }
+.burger.open span:nth-child(1){ transform:translateY(7.6px) rotate(45deg); }
+.burger.open span:nth-child(2){ opacity:0; }
+.burger.open span:nth-child(3){ transform:translateY(-7.6px) rotate(-45deg); }
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative; min-height:100vh; min-height:100svh; display:flex; align-items:center;
+  padding:160px 40px 100px;
+  padding-top:calc(env(safe-area-inset-top,0px) + 160px);
+  overflow:hidden;
+}
+.hero-grid{
+  position:absolute; inset:0; z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,#000 0%,transparent 75%);
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,#000 0%,transparent 75%);
+}
+.orb{ position:absolute; border-radius:50%; filter:blur(90px); mix-blend-mode:screen; z-index:0; }
+.orb.a{ width:60vw; height:60vw; top:-22%; right:-12%; background:radial-gradient(circle,rgba(139,123,255,.55),transparent 62%); animation:drift1 16s ease-in-out infinite; }
+.orb.b{ width:52vw; height:52vw; bottom:-26%; left:-14%; background:radial-gradient(circle,rgba(185,139,255,.5),transparent 62%); animation:drift2 19s ease-in-out infinite; }
+.orb.c{ width:38vw; height:38vw; top:34%; left:30%; background:radial-gradient(circle,rgba(232,178,78,.26),transparent 62%); animation:drift3 22s ease-in-out infinite; }
+@keyframes drift1{ 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(-120px,70px) scale(1.15);} 66%{transform:translate(70px,-90px) scale(.92);} }
+@keyframes drift2{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(140px,-80px) scale(1.18);} }
+@keyframes drift3{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-150px,90px) scale(1.25);} }
+
+/* Hero — Tower of Babel (ziggurat) line-art */
+.hero-tower{
+  position:absolute; z-index:1; right:max(2vw,calc((100vw - var(--maxw))/2 - 60px)); top:50%;
+  transform:translateY(-50%); width:min(46vw,560px); height:auto; pointer-events:none; opacity:.9;
+  -webkit-mask-image:radial-gradient(ellipse 90% 90% at 60% 45%,#000 35%,transparent 88%);
+  mask-image:radial-gradient(ellipse 90% 90% at 60% 45%,#000 35%,transparent 88%);
+}
+.hero-tower{ filter:drop-shadow(0 0 7px rgba(139,123,255,.45)) drop-shadow(0 0 18px rgba(232,178,78,.18)); }
+.hero-tower g ellipse{ transform-box:fill-box; transform-origin:center; animation:ringWave 3s ease-in-out infinite; }
+.hero-tower g ellipse:nth-of-type(1){ animation-delay:0s; }
+.hero-tower g ellipse:nth-of-type(2){ animation-delay:.16s; }
+.hero-tower g ellipse:nth-of-type(3){ animation-delay:.32s; }
+.hero-tower g ellipse:nth-of-type(4){ animation-delay:.48s; }
+.hero-tower g ellipse:nth-of-type(5){ animation-delay:.64s; }
+.hero-tower g ellipse:nth-of-type(6){ animation-delay:.80s; }
+.hero-tower g ellipse:nth-of-type(7){ animation-delay:.96s; }
+@keyframes ringWave{
+  0%,62%,100%{ opacity:.42; transform:scale(1); }
+  28%{ opacity:1; transform:scale(1.045); }
+}
+.hero-tower .beam-pulse{ transform-box:fill-box; animation:beamRise 2.6s cubic-bezier(.45,0,.55,1) infinite; }
+@keyframes beamRise{ 0%{ transform:translateY(26px); opacity:0; } 14%{ opacity:1; } 80%{ opacity:1; } 100%{ transform:translateY(-124px); opacity:0; } }
+@media (max-width:1024px){ .hero-tower{ opacity:.32; right:-8vw; width:70vw; } }
+
+.hero-inner{ position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; width:100%; }
+.hero-eyebrow{
+  font-family:var(--font-en); font-size:12.5px; font-weight:600; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--text-2); margin-bottom:34px; display:flex; align-items:center; gap:14px;
+}
+.hero-eyebrow::before{ content:''; width:44px; height:1px; background:var(--gold); }
+.hero h1{
+  font-family:var(--font-en); font-weight:900; letter-spacing:-0.035em; line-height:1.0;
+  font-size:clamp(44px,8.2vw,116px); margin-bottom:18px;
+}
+.hero h1 .l2{ display:block; }
+.hero-jp{ font-family:var(--font-jp); font-weight:900; font-size:clamp(20px,3vw,32px); letter-spacing:.02em; margin-bottom:30px; line-height:1.4; }
+.hero-sub{ font-size:clamp(15px,2vw,18px); color:var(--text-2); font-weight:500; line-height:2; max-width:540px; margin-bottom:48px; }
+.hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+.btn{
+  display:inline-flex; align-items:center; gap:11px; font-family:var(--font-jp);
+  font-size:15px; font-weight:600; padding:16px 30px; border-radius:100px; cursor:pointer; transition:all .35s cubic-bezier(.16,1,.3,1); border:1px solid transparent;
+}
+.btn .arr{ transition:transform .35s; }
+.btn:hover .arr{ transform:translateX(5px); }
+.btn-primary{ background:var(--grad); color:#1a1206; box-shadow:0 10px 36px rgba(139,123,255,.32); font-weight:700; }
+.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 18px 48px rgba(139,123,255,.46); }
+.btn-ghost{ background:rgba(255,255,255,.04); color:#fff; border-color:var(--border-strong); }
+.btn-ghost:hover{ background:rgba(255,255,255,.09); transform:translateY(-3px); }
+.scroll-hint{ position:absolute; bottom:40px; left:50%; transform:translateX(-50%); z-index:2; font-family:var(--font-en); font-size:10.5px; letter-spacing:.28em; color:var(--text-3); display:flex; flex-direction:column; align-items:center; gap:12px; }
+.scroll-hint .line{ width:1px; height:46px; background:linear-gradient(var(--accent),transparent); animation:scrollLine 2.2s ease-in-out infinite; transform-origin:top; }
+@keyframes scrollLine{ 0%{transform:scaleY(0);} 45%{transform:scaleY(1);} 100%{transform:scaleY(0); transform-origin:bottom;} }
+
+/* ---------- Philosophy ---------- */
+.philosophy{ background:var(--bg); position:relative; }
+.philo-grid{ display:grid; grid-template-columns:0.85fr 1fr; gap:80px; align-items:center; }
+.philo-statement{ font-family:var(--font-jp); font-weight:900; font-size:clamp(28px,3.6vw,44px); line-height:1.45; letter-spacing:-0.01em; }
+.philo-statement .em{ display:inline; }
+.philo-body p{ color:var(--text-2); font-size:16.5px; line-height:2.1; margin-bottom:22px; }
+.philo-body p:last-child{ margin-bottom:0; }
+.philo-tagline{ font-family:var(--font-en); font-size:14px; letter-spacing:.2em; color:var(--text-3); margin-top:36px; text-transform:uppercase; }
+
+/* ---------- Strengths ---------- */
+.strengths{ background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.str-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; margin-bottom:72px; }
+.str-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.str-card{
+  background:var(--card); border:1px solid var(--border); border-radius:20px; padding:44px 36px;
+  transition:transform .4s cubic-bezier(.16,1,.3,1), border-color .4s, background .4s; position:relative; overflow:hidden;
+}
+.str-card::after{ content:''; position:absolute; left:0; bottom:0; width:100%; height:2px; background:var(--grad); transform:scaleX(0); transform-origin:left; transition:transform .5s cubic-bezier(.16,1,.3,1); }
+.str-card:hover{ transform:translateY(-6px); border-color:var(--border-strong); background:var(--card-hover); }
+.str-card:hover::after{ transform:scaleX(1); }
+.str-num{ font-family:var(--font-en); font-size:12px; font-weight:700; letter-spacing:.16em; color:var(--accent); margin-bottom:24px; }
+.str-card h3{ font-size:21px; font-weight:700; margin-bottom:16px; letter-spacing:.01em; }
+.str-card p{ color:var(--text-2); font-size:15px; line-height:1.95; }
+
+/* ---------- Business ---------- */
+.business{ background:var(--bg); }
+.biz-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:72px; }
+.biz-card{
+  background:var(--card); border:1px solid var(--border); border-radius:22px; padding:46px 42px;
+  position:relative; overflow:hidden; transition:transform .4s cubic-bezier(.16,1,.3,1), border-color .4s, background .4s;
+}
+.biz-card:hover{ transform:translateY(-6px); border-color:var(--border-strong); background:var(--card-hover); }
+.biz-glow{ position:absolute; top:-40%; right:-20%; width:55%; height:120%; background:radial-gradient(circle,rgba(139,123,255,.13),transparent 65%); opacity:0; transition:opacity .5s; pointer-events:none; }
+.biz-card:hover .biz-glow{ opacity:1; }
+.biz-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:30px; }
+.biz-icon{ width:52px; height:52px; border-radius:13px; background:rgba(139,123,255,.1); border:1px solid rgba(139,123,255,.25); display:flex; align-items:center; justify-content:center; color:var(--accent); }
+.biz-icon svg{ width:25px; height:25px; }
+.biz-no{ font-family:var(--font-en); font-size:13px; font-weight:800; letter-spacing:.14em; color:var(--text-3); }
+.biz-en{ font-family:var(--font-en); font-size:12px; font-weight:700; letter-spacing:.2em; color:var(--accent); margin-bottom:10px; }
+.biz-card h3{ font-size:22px; font-weight:700; margin-bottom:16px; }
+.biz-card p{ color:var(--text-2); font-size:14.5px; line-height:1.95; margin-bottom:22px; }
+.biz-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+.biz-tag{ font-size:12px; color:var(--text-2); background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:100px; padding:5px 13px; }
+
+/* ---------- Company ---------- */
+.company{ background:var(--bg-2); border-top:1px solid var(--border); }
+.comp-grid{ display:grid; grid-template-columns:0.7fr 1fr; gap:72px; align-items:start; }
+.profile{ display:flex; flex-direction:column; }
+.p-row{ display:grid; grid-template-columns:200px 1fr; gap:32px; padding:24px 0; border-bottom:1px solid var(--border); }
+.p-row:first-child{ border-top:1px solid var(--border); }
+.p-label{ font-family:var(--font-en); font-size:13px; font-weight:600; letter-spacing:.1em; color:var(--accent); }
+.p-label .jp{ display:block; font-family:var(--font-jp); font-size:12px; color:var(--text-3); letter-spacing:0; margin-top:3px; font-weight:400; }
+.p-val{ font-size:15.5px; color:var(--text); line-height:1.8; }
+.p-val small{ display:block; color:var(--text-3); font-size:13px; margin-top:4px; }
+
+/* ---------- Contact / CTA ---------- */
+.contact{ position:relative; background:var(--bg); text-align:center; overflow:hidden; padding:160px 40px; }
+.contact .orb{ filter:blur(110px); }
+.contact .orb.x{ width:60vw; height:50vw; top:-30%; left:50%; transform:translateX(-50%); background:radial-gradient(circle,rgba(139,123,255,.3),transparent 65%); mix-blend-mode:screen; animation:none; }
+.contact-inner{ position:relative; z-index:2; max-width:760px; margin:0 auto; }
+.contact .eyebrow{ justify-content:center; }
+.contact h2{ font-family:var(--font-en); font-weight:900; font-size:clamp(38px,6vw,72px); letter-spacing:-0.03em; line-height:1.05; margin-bottom:28px; }
+.contact-lead{ color:var(--text-2); font-size:17px; line-height:2; margin-bottom:48px; }
+.contact-info{ display:flex; gap:48px; justify-content:center; flex-wrap:wrap; margin-top:60px; padding-top:48px; border-top:1px solid var(--border); }
+.ci-item{ text-align:left; }
+.ci-label{ font-family:var(--font-en); font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+.ci-val{ font-size:14.5px; color:var(--text-2); line-height:1.7; }
+
+/* ---------- Footer ---------- */
+.footer{ background:var(--bg-3); border-top:1px solid var(--border); padding:80px 40px 40px; }
+.footer-top{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:48px; max-width:var(--maxw); margin:0 auto 56px; }
+.footer .logo{ margin-bottom:20px; }
+.footer-desc{ color:var(--text-3); font-size:13.5px; line-height:1.9; max-width:320px; }
+.footer-col h4{ font-family:var(--font-en); font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--text-3); margin-bottom:22px; }
+.footer-col a{ display:block; color:var(--text-2); font-size:14px; margin-bottom:14px; transition:color .25s,padding-left .25s; }
+.footer-col a:hover{ color:var(--accent); padding-left:6px; }
+.footer-bottom{ max-width:var(--maxw); margin:0 auto; padding-top:32px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+.footer-bottom .copy{ font-family:var(--font-en); font-size:12.5px; color:var(--text-3); letter-spacing:.04em; }
+.footer-bottom .legal{ display:flex; gap:24px; }
+.footer-bottom .legal a{ font-size:12.5px; color:var(--text-3); transition:color .25s; }
+.footer-bottom .legal a:hover{ color:var(--text-2); }
+
+/* ---------- Market ---------- */
+.market{ background:var(--bg); }
+.market-head{ text-align:center; max-width:700px; margin:0 auto 72px; }
+.market-head .eyebrow{ justify-content:center; }
+.market-head .s-lead{ margin:0 auto; }
+.stat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.stat-card{ background:var(--card); border:1px solid var(--border); border-radius:20px; padding:48px 32px; text-align:center; transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s,background .4s; }
+.stat-card:hover{ transform:translateY(-6px); border-color:var(--border-strong); background:var(--card-hover); }
+.stat-num{ font-family:var(--font-en); font-weight:900; font-size:clamp(50px,6vw,72px); line-height:1; letter-spacing:-0.03em; margin-bottom:18px; }
+.stat-num small{ font-size:0.42em; font-weight:800; margin-left:3px; }
+.stat-label{ font-size:15px; color:var(--text); line-height:1.7; margin-bottom:14px; }
+.stat-src{ font-family:var(--font-en); font-size:11px; letter-spacing:.03em; color:var(--text-3); }
+
+/* ---------- Contact Form ---------- */
+.contact-form{ max-width:680px; margin:52px auto 0; text-align:left; }
+.frow{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+.field{ display:flex; flex-direction:column; }
+.field.full{ margin-bottom:8px; }
+.field label{ font-family:var(--font-en); font-size:12.5px; font-weight:600; letter-spacing:.04em; color:var(--text-2); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+.field .req{ font-family:var(--font-jp); font-size:10.5px; font-weight:500; color:var(--accent); border:1px solid rgba(139,123,255,.4); border-radius:100px; padding:2px 9px; }
+.field input,.field select,.field textarea{
+  font-family:var(--font-jp); font-size:16px; color:var(--text);
+  background:rgba(255,255,255,.03); border:1px solid var(--border); border-radius:12px;
+  padding:15px 16px; width:100%; transition:border-color .25s, background .25s; outline:none;
+}
+.field textarea{ resize:vertical; min-height:130px; }
+.field input::placeholder,.field textarea::placeholder{ color:var(--text-3); }
+.field select{ appearance:none; -webkit-appearance:none; cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236A6488' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; padding-right:42px; }
+.field input:focus,.field select:focus,.field textarea:focus{ border-color:var(--accent); background:rgba(139,123,255,.06); }
+.cf-submit{ width:100%; justify-content:center; margin-top:8px; border:none; }
+.cf-note{ font-size:12px; color:var(--text-3); margin-top:18px; line-height:1.7; text-align:center; }
+.cf-error{ margin-top:16px; padding:14px 18px; border-radius:12px; background:rgba(255,90,90,.08); border:1px solid rgba(255,90,90,.32); color:#ff9b9b; font-size:13.5px; text-align:center; }
+.cf-consent{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:13px; color:var(--text-2); margin-bottom:18px; }
+.cf-consent input{ width:17px; height:17px; accent-color:var(--accent); flex-shrink:0; cursor:pointer; }
+.cf-consent a{ color:var(--accent); text-decoration:underline; }
+.cf-success{ max-width:560px; margin:52px auto 0; text-align:center; background:var(--card); border:1px solid var(--border); border-radius:20px; padding:56px 40px; }
+.cf-success-icon{ width:60px; height:60px; margin:0 auto 24px; border-radius:50%; background:var(--grad); display:flex; align-items:center; justify-content:center; font-size:28px; color:#1a1206; }
+.cf-success h3{ font-size:22px; font-weight:700; margin-bottom:12px; }
+.cf-success p{ color:var(--text-2); font-size:15px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .philo-grid{ grid-template-columns:1fr; gap:48px; }
+  .comp-grid{ grid-template-columns:1fr; gap:48px; }
+  .str-grid{ grid-template-columns:1fr; }
+  .biz-grid{ grid-template-columns:1fr; }
+  .stat-grid{ grid-template-columns:1fr; max-width:440px; margin:0 auto; }
+  .footer-top{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:768px){
+  .section{ padding:88px 22px; }
+  .hero{ padding:130px 22px 90px; padding-top:calc(env(safe-area-inset-top,0px) + 130px); }
+  .nav{
+    display:none; position:fixed; inset:0; z-index:99;
+    flex-direction:column; align-items:center; justify-content:center; gap:30px;
+    background:#070612;
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .nav.open{ display:flex; }
+  .nav a{ font-size:22px; color:var(--text); }
+  .nav a::after{ display:none; }
+  .nav .nav-cta{ font-size:16px; padding:13px 30px; }
+  .burger{ display:flex; }
+  .header{ background:rgba(7,6,18,0.85); }
+  .str-head{ flex-direction:column; align-items:flex-start; }
+  .p-row{ grid-template-columns:1fr; gap:6px; padding:20px 0; }
+  .contact-info{ gap:32px; }
+  .frow{ grid-template-columns:1fr; gap:18px; margin-bottom:18px; }
+  .footer-top{ grid-template-columns:1fr; gap:40px; }
+  .footer-bottom{ flex-direction:column; align-items:flex-start; }
+  .hero h1{ font-size:clamp(40px,12vw,64px); }
+  .scroll-hint{ display:none; }
+}
+@media (prefers-reduced-motion:reduce){
+  .orb,.scroll-hint .line,.hero-tower g ellipse,.hero-tower .beam-pulse{ animation:none; }
+  .hero-tower .beam-pulse{ opacity:0; }
+  .reveal{ transition:none; opacity:1; transform:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="header" id="header">
+  <a href="#top" class="logo">
+    <svg class="logo-mark" viewBox="0 0 34 34" aria-hidden="true">
+      <defs><linearGradient id="blg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7B6CFF"/><stop offset=".55" stop-color="#B07BFF"/><stop offset="1" stop-color="#E8B24E"/></linearGradient></defs>
+      <rect x="1" y="1" width="32" height="32" rx="9" fill="url(#blg)"/>
+      <g fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M13.5 25.5h7"/><path d="M12 25.5v-3h10v3"/><path d="M13.4 22.5v-3h7.2v3"/><path d="M14.8 19.5v-3h4.4v3"/><path d="M17 16.5v-4.5"/>
+      </g>
+    </svg>
+    <span class="logo-text">BABEL</span>
+  </a>
+  <nav class="nav" id="nav">
+    <a href="#philosophy">Philosophy</a>
+    <a href="#business">Business</a>
+    <a href="#company">Company</a>
+    <a href="#contact" class="nav-cta">お問い合わせ</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="メニュー" aria-expanded="false" aria-controls="nav">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="orb a"></div>
+  <div class="orb b"></div>
+  <div class="orb c"></div>
+
+  <!-- Tower of Babel (ziggurat) line-art -->
+  <svg class="hero-tower" viewBox="0 0 460 560" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="towerG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#E8B24E"/><stop offset=".5" stop-color="#B07BFF"/><stop offset="1" stop-color="#7B6CFF"/>
+      </linearGradient>
+      <linearGradient id="beamPulse" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#E8B24E" stop-opacity="0"/><stop offset=".5" stop-color="#FFE3A6" stop-opacity="1"/><stop offset="1" stop-color="#B07BFF" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <g stroke="url(#towerG)" stroke-width="1.6" opacity=".85">
+      <!-- stacked stepped tiers, narrowing upward -->
+      <ellipse class="ring" cx="230" cy="500" rx="180" ry="40"/>
+      <ellipse class="ring ring2" cx="230" cy="430" rx="150" ry="33"/>
+      <ellipse class="ring ring3" cx="230" cy="362" rx="124" ry="28"/>
+      <ellipse class="ring" cx="230" cy="298" rx="100" ry="23"/>
+      <ellipse class="ring ring2" cx="230" cy="238" rx="78" ry="18"/>
+      <ellipse class="ring ring3" cx="230" cy="182" rx="58" ry="14"/>
+      <ellipse class="ring" cx="230" cy="132" rx="40" ry="10"/>
+      <!-- vertical edges -->
+      <path d="M50 500 L80 132 M410 500 L380 132" opacity=".5"/>
+      <path d="M110 460 L130 200 M350 460 L330 200" opacity=".35"/>
+    </g>
+    <!-- rising light beam to the heavens -->
+    <rect class="beam-track" x="227" y="14" width="6" height="126" rx="3" fill="url(#towerG)" opacity=".16"/>
+    <rect class="beam-pulse" x="226" y="98" width="8" height="46" rx="4" fill="url(#beamPulse)"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Software · Data · Media</div>
+    <h1>Reaching the<span class="l2 grad-text">unreachable.</span></h1>
+    <p class="hero-jp">到達不可能な未来を、<span class="gold-text">実現する</span></p>
+    <p class="hero-sub">かつて人は、天に届く塔を夢見た。<br>私たちBABELは、ITで「不可能」を「実現」に変えていきます。</p>
+    <div class="hero-actions">
+      <a href="#business" class="btn btn-primary">事業を見る <span class="arr">→</span></a>
+      <a href="#contact" class="btn btn-ghost">お問い合わせ <span class="arr">→</span></a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span class="line"></span>SCROLL</div>
+</section>
+
+<!-- ===== Philosophy ===== -->
+<section class="section philosophy" id="philosophy">
+  <div class="inner">
+    <div class="eyebrow reveal">Philosophy</div>
+    <div class="philo-grid">
+      <h2 class="philo-statement reveal">到達不可能な未来を、<br><span class="em grad-text">実現する</span></h2>
+      <div class="philo-body reveal d1">
+        <p>社名の「BABEL」は、天に達する塔を目指した<strong>バベルの塔</strong>に由来します。人が「不可能」と諦めてきたことに、もう一度手を伸ばす。それが私たちの原点です。</p>
+        <p>難しいことを、難しいまま終わらせない。お客様の「こうなったらいいな」を、技術の力で現実に変えていく。創業以来変わらない姿勢です。</p>
+        <p>分析ツールの開発から、Web制作、人材育成、メディア運営まで。一見ばらばらに見える事業はすべて、「ITをもっと身近で手軽なものへ」という一つの想いでつながっています。</p>
+        <div class="philo-tagline">IT should be closer, simpler, for everyone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Strengths ===== -->
+<section class="section strengths" id="strengths">
+  <div class="inner">
+    <div class="str-head">
+      <div>
+        <div class="eyebrow reveal">Why BABEL</div>
+        <h2 class="s-title reveal d1">選ばれる、3つの理由</h2>
+      </div>
+      <p class="s-lead reveal d2">大手にはない距離の近さと価格で、<br>中小企業や個人にも届くITを。</p>
+    </div>
+    <div class="str-grid">
+      <div class="str-card reveal">
+        <div class="str-num">01 / COST</div>
+        <h3>圧倒的な低価格</h3>
+        <p>無駄を削ぎ落とした体制で、業界内でも際立つ価格を実現。コストの壁でITを諦めていた方こそ、ご相談ください。</p>
+      </div>
+      <div class="str-card reveal d1">
+        <div class="str-num">02 / SPEED</div>
+        <h3>短期納品</h3>
+        <p>効率的な工程管理で、必要なものを素早くカタチに。ビジネスのスピードを止めません。</p>
+      </div>
+      <div class="str-card reveal d2">
+        <div class="str-num">03 / SUPPORT</div>
+        <h3>包括サポート＆研修</h3>
+        <p>納品して終わりにしない。導入後の運用から、社内担当者を育てる1対1の研修まで。長く伴走しつづけます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Business ===== -->
+<section class="section business" id="business">
+  <div class="inner">
+    <div class="eyebrow reveal">Business</div>
+    <h2 class="s-title reveal d1">4つの事業領域</h2>
+    <p class="s-lead reveal d2">ソフトウェア開発から、メディア運営まで。<br>テクノロジーで価値を生む、BABELの事業。</p>
+    <div class="biz-grid">
+
+      <div class="biz-card reveal">
+        <div class="biz-glow"></div>
+        <div class="biz-top">
+          <div class="biz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 5-7"/></svg></div>
+          <div class="biz-no">01</div>
+        </div>
+        <div class="biz-en">Analytics Tools</div>
+        <h3>分析ツール開発・運用</h3>
+        <p>数字の裏にある法則を、ツールに落とし込む。Excel連携の自動計算から、相場分析・自動売買まで開発・運用します。</p>
+        <div class="biz-tags">
+          <span class="biz-tag">Excel連携自動計算</span>
+          <span class="biz-tag">株価チャート分析</span>
+          <span class="biz-tag">自動売買 MT4 RSS</span>
+          <span class="biz-tag">過去データ解析</span>
+        </div>
+      </div>
+
+      <div class="biz-card reveal d1">
+        <div class="biz-glow"></div>
+        <div class="biz-top">
+          <div class="biz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="biz-no">02</div>
+        </div>
+        <div class="biz-en">Web &amp; Training</div>
+        <h3>Web制作・開発研修</h3>
+        <p>作るだけでなく、使いこなせる組織づくりまで。サイト制作と並行し、開発・ITリテラシーの社内研修も提供します。</p>
+        <div class="biz-tags">
+          <span class="biz-tag">LP・HP制作</span>
+          <span class="biz-tag">企業研修</span>
+          <span class="biz-tag">ITリテラシー研修</span>
+          <span class="biz-tag">能力開発コンサル</span>
+        </div>
+      </div>
+
+      <div class="biz-card reveal d2">
+        <div class="biz-glow"></div>
+        <div class="biz-top">
+          <div class="biz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <div class="biz-no">03</div>
+        </div>
+        <div class="biz-en">Media</div>
+        <h3>情報配信サイト運営</h3>
+        <p>正しい情報を、わかりやすく届ける。投資情報メディア「Investor's Library」をはじめ、専門家監修のメディアを運営します。</p>
+        <div class="biz-tags">
+          <span class="biz-tag">Investor's Library</span>
+          <span class="biz-tag">専門家監修ブログ</span>
+          <span class="biz-tag">コンテンツ制作</span>
+        </div>
+      </div>
+
+      <div class="biz-card reveal d3">
+        <div class="biz-glow"></div>
+        <div class="biz-top">
+          <div class="biz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+          <div class="biz-no">04</div>
+        </div>
+        <div class="biz-en">Advertising</div>
+        <h3>広告代行・運営</h3>
+        <p>集客から運用まで、ワンストップで。自社アフィリエイトやSNS（Instagram・TikTok）・ブログを活用した広告運用を代行します。</p>
+        <div class="biz-tags">
+          <span class="biz-tag">アフィリエイト運営</span>
+          <span class="biz-tag">Instagram / TikTok</span>
+          <span class="biz-tag">ブログ運用</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== Market ===== -->
+<section class="section market" id="market">
+  <div class="inner">
+    <div class="market-head">
+      <div class="eyebrow reveal">Market</div>
+      <h2 class="s-title reveal d1">数字で見る、IT活用のいま</h2>
+      <p class="s-lead reveal d2">中小企業を取り巻く環境は、急速にデジタルへと移行しています。<br>その変化の波を、追い風に変えるお手伝いをします。</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card reveal">
+        <div class="stat-num grad-text">99.7<small>%</small></div>
+        <div class="stat-label">日本の企業に占める<br>中小企業の割合</div>
+        <div class="stat-src">出典：中小企業庁（2021年）</div>
+      </div>
+      <div class="stat-card reveal d1">
+        <div class="stat-num grad-text">42.0<small>%</small></div>
+        <div class="stat-label">DXに取り組む・検討する<br>中小企業の割合</div>
+        <div class="stat-src">出典：中小企業基盤整備機構（2024年）</div>
+      </div>
+      <div class="stat-card reveal d2">
+        <div class="stat-num grad-text">336<small>万</small></div>
+        <div class="stat-label">日本の中小企業の数<br>（活躍の余地は、まだ広い）</div>
+        <div class="stat-src">出典：中小企業庁（2021年）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Company ===== -->
+<section class="section company" id="company">
+  <div class="inner">
+    <div class="comp-grid">
+      <div>
+        <div class="eyebrow reveal">Company</div>
+        <h2 class="s-title reveal d1">会社概要</h2>
+        <p class="s-lead reveal d2">東京・渋谷を拠点に、<br>ITで「不可能」を「実現」に変えています。</p>
+      </div>
+      <div class="profile reveal d1">
+        <div class="p-row"><div class="p-label">Company<span class="jp">会社名</span></div><div class="p-val">株式会社BABEL（BABEL Inc.）</div></div>
+        <div class="p-row"><div class="p-label">Established<span class="jp">設立</span></div><div class="p-val">2016年6月1日</div></div>
+        <div class="p-row"><div class="p-label">Capital<span class="jp">資本金</span></div><div class="p-val">100万円</div></div>
+        <div class="p-row"><div class="p-label">CEO<span class="jp">代表者</span></div><div class="p-val">森 修平</div></div>
+        <div class="p-row"><div class="p-label">Address<span class="jp">所在地</span></div><div class="p-val">〒151-0051<br>東京都渋谷区千駄ヶ谷4-29-12<br>北参道ダイヤモンドパレス508</div></div>
+        <div class="p-row"><div class="p-label">Hours<span class="jp">営業時間</span></div><div class="p-val">平日 9:00〜18:00<small>土日祝休</small></div></div>
+        <div class="p-row"><div class="p-label">Bank<span class="jp">取引銀行</span></div><div class="p-val">三井住友銀行／青梅信用金庫</div></div>
+        <div class="p-row"><div class="p-label">Business<span class="jp">事業内容</span></div><div class="p-val">分析ツール開発・運用／Web制作・開発研修／情報配信サイト運営／広告代行</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section class="contact" id="contact">
+  <div class="orb x"></div>
+  <div class="contact-inner">
+    <div class="eyebrow reveal">Contact</div>
+    <h2 class="reveal d1">Let's reach it,<br><span class="grad-text">together.</span></h2>
+    <p class="contact-lead reveal d2">分析ツールの開発、Webサイト制作、社内研修まで。<br>「こんなことできる？」のご相談だけでも、お気軽にどうぞ。</p>
+    <form class="contact-form reveal d2" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <!-- ▼ Web3Forms：D-styleと共用のキー。件名で会社を判別。専用化する場合は https://web3forms.com で再取得 -->
+      <input type="hidden" name="access_key" value="35eb45f8-a2b4-42a3-8f1f-6dc7c7e1b494">
+      <input type="hidden" name="subject" value="【株式会社BABEL 公式サイト】新規お問い合わせ">
+      <input type="hidden" name="from_name" value="BABEL Website">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="frow">
+        <div class="field">
+          <label for="cf-name">お名前 <span class="req">必須</span></label>
+          <input id="cf-name" name="name" type="text" required placeholder="山田 太郎">
+        </div>
+        <div class="field">
+          <label for="cf-company">会社名</label>
+          <input id="cf-company" name="company" type="text" placeholder="株式会社〇〇">
+        </div>
+      </div>
+      <div class="frow">
+        <div class="field">
+          <label for="cf-email">メールアドレス <span class="req">必須</span></label>
+          <input id="cf-email" name="email" type="email" required placeholder="example@webbabel.org">
+        </div>
+        <div class="field">
+          <label for="cf-type">お問い合わせ種別</label>
+          <select id="cf-type" name="category">
+            <option>分析ツール開発・運用</option>
+            <option>Web制作・開発研修</option>
+            <option>情報配信サイト運営</option>
+            <option>広告代行・運営</option>
+            <option>その他</option>
+          </select>
+        </div>
+      </div>
+      <div class="field full">
+        <label for="cf-msg">お問い合わせ内容 <span class="req">必須</span></label>
+        <textarea id="cf-msg" name="message" required placeholder="ご相談内容をご記入ください"></textarea>
+      </div>
+      <label class="cf-consent"><input type="checkbox" id="cf-agree" name="agree" required> <a href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意のうえ送信します</label>
+      <button type="submit" class="btn btn-primary cf-submit">送信する <span class="arr">→</span></button>
+      <div class="cf-error" id="cfError" role="alert" hidden></div>
+      <p class="cf-note">ご入力いただいた内容は、お問い合わせへの対応のみに利用します。</p>
+    </form>
+    <div class="cf-success" id="cfSuccess" hidden>
+      <div class="cf-success-icon">✓</div>
+      <h3>送信ありがとうございます</h3>
+      <p>内容を確認のうえ、担当者より折り返しご連絡いたします。</p>
+    </div>
+    <div class="contact-info reveal d3">
+      <div class="ci-item">
+        <div class="ci-label">Address</div>
+        <div class="ci-val">〒151-0051<br>東京都渋谷区千駄ヶ谷4-29-12<br>北参道ダイヤモンドパレス508</div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-label">Hours</div>
+        <div class="ci-val">平日 9:00〜18:00<br>土日祝休</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <a href="#top" class="logo">
+        <svg class="logo-mark" viewBox="0 0 34 34" aria-hidden="true">
+          <defs><linearGradient id="blg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7B6CFF"/><stop offset=".55" stop-color="#B07BFF"/><stop offset="1" stop-color="#E8B24E"/></linearGradient></defs>
+          <rect x="1" y="1" width="32" height="32" rx="9" fill="url(#blg2)"/>
+          <g fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M13.5 25.5h7"/><path d="M12 25.5v-3h10v3"/><path d="M13.4 22.5v-3h7.2v3"/><path d="M14.8 19.5v-3h4.4v3"/><path d="M17 16.5v-4.5"/>
+          </g>
+        </svg>
+        <span class="logo-text">BABEL</span>
+      </a>
+      <p class="footer-desc">到達不可能な未来を実現する。ITをもっと身近で手軽なものへ。株式会社BABELは、テクノロジーで「不可能」を「実現」に変える会社です。</p>
+    </div>
+    <div class="footer-col">
+      <h4>Sitemap</h4>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#business">Business</a>
+      <a href="#company">Company</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="#contact">お問い合わせフォーム</a>
+      <a href="#company">アクセス</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="copy">© 2026 BABEL Inc. All rights reserved.</div>
+    <div class="legal">
+      <a href="privacy.html">プライバシーポリシー</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll state
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+
+  // Burger menu
+  const burger = document.getElementById('burger');
+  const nav = document.getElementById('nav');
+  const closeNav = () => { nav.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Contact form → Web3Forms
+  const cform = document.getElementById('contactForm');
+  if (cform) {
+    const csubmit = cform.querySelector('.cf-submit');
+    const cerr = document.getElementById('cfError');
+    cform.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!cform.checkValidity()) { cform.reportValidity(); return; }
+      if (cerr) { cerr.hidden = true; cerr.textContent = ''; }
+      if (csubmit) { csubmit.disabled = true; csubmit.style.opacity = '0.6'; }
+      const data = Object.fromEntries(new FormData(cform).entries());
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (res.ok && json.success) {
+          cform.hidden = true;
+          const ok = document.getElementById('cfSuccess');
+          if (ok) { ok.hidden = false; ok.scrollIntoView({ behavior:'smooth', block:'center' }); }
+        } else {
+          if (cerr) { cerr.textContent = '✕ 送信に失敗しました：' + (json.message || '時間をおいて再度お試しください。'); cerr.hidden = false; }
+        }
+      } catch (err) {
+        if (cerr) { cerr.textContent = '✕ ネットワークエラーが発生しました。時間をおいて再度お試しください。'; cerr.hidden = false; }
+      } finally {
+        if (csubmit) { csubmit.disabled = false; csubmit.style.opacity = ''; }
+      }
+    });
+  }
+</script>
+</body>
+</html>
